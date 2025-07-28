@@ -115,7 +115,7 @@
             </nav>
 
             <div class="content">
-                <h2>Selamat Datang di Sistem Sarpras Sekolah</h2>
+                <h2>Selamat Datang di Librinet</h2>
                 <p>Silakan pilih menu di sebelah kiri untuk mulai menggunakan sistem.</p>
             </div>
         </div>

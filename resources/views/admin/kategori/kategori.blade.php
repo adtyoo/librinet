@@ -72,7 +72,7 @@
 <body>
 
 <div class="d-flex">
-    @include('sidebar', ['active' => 'kategori'])
+    @include('layouts.sidebar', ['active' => 'kategori'])
 
     <div class="flex-grow-1">
         <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">

@@ -24,14 +24,14 @@ class ItemController extends Controller
     public function index()
     {
         $items = Item::with(['kategori', 'admin'])->get();
-        return view('item', compact('items'));
+        return view('admin.item.item', compact('items'));
     }
 
     // Menampilkan form untuk menambah item
     public function create()
     {
         $kategoris = Kategori::all();
-        return view('tambahitem', compact('kategoris'));
+        return view('admin.item.tambahitem', compact('kategoris'));
     }
 
     // Menyimpan item baru
@@ -69,7 +69,7 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($id);
         $kategoris = Kategori::all();
-        return view('edititem', compact('item', 'kategoris'));
+        return view('admin.item.edititem', compact('item', 'kategoris'));
     }
 
     // update item yang sudah ada
@@ -114,7 +114,7 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('admin.item.index')->with('success', 'Item berhasil dihapus.');
+        return redirect()->route('admin.item.item')->with('success', 'Item berhasil dihapus.');
     }
 
     public function api_item()

@@ -28,7 +28,7 @@ class PengembalianController extends Controller
             ->whereNotNull('waktu_kembali') // pastikan sudah benar-benar dikembalikan
             ->get();
 
-        return view('pengembalian', compact('pengembalians'));
+        return view('admin.pengembalian.pengembalian', compact('pengembalians'));
     }
 
         public function laporan()

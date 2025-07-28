@@ -73,7 +73,7 @@
 </head>
 <body>
     <div class="sidebar">
-        @include('sidebar', ['active' => 'pengembalian'])
+        @include('layouts.sidebar', ['active' => 'pengembalian'])
     </div>
     <div class="content">
         <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">

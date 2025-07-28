@@ -89,7 +89,7 @@
 
 <div class="d-flex">
     <!-- Sidebar -->
-    @include('sidebar', ['active' => 'item'])
+    @include('layouts.sidebar', ['active' => 'item'])
 
     <!-- Main content -->
     <div class="flex-grow-1">
