@@ -89,7 +89,7 @@
 
 <div class="d-flex">
     <!-- Sidebar dipanggil dari layout terpisah -->
-    @include('sidebar', ['active' => 'akun'])
+    @include('layouts.sidebar', ['active' => 'akun'])
 
     <!-- Main content -->
     <div class="flex-grow-1">

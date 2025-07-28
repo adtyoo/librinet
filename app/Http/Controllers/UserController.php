@@ -12,7 +12,7 @@ class UserController extends Controller
 {
     public function show ()
     {
-        return view ('register');
+        return view ('admin.user.register');
     }
     public function register(Request $request)
     {
@@ -62,7 +62,7 @@ class UserController extends Controller
     public function datauser ()
     {
         $users = User::with(['admin'])->get(); // Tambah 'admin'
-        return view('datauser', compact('users'));
+        return view('admin.user.datauser', compact('users'));
     }
 
     public function user (Request $request)
