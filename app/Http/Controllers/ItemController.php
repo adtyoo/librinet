@@ -114,7 +114,7 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
         $item->delete();
 
-        return redirect()->route('admin.item.item')->with('success', 'Item berhasil dihapus.');
+        return redirect()->route('item.index')->with('success', 'Item berhasil dihapus.');
     }
 
     public function api_item()
