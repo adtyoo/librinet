@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Tambah Item</title>
+    <title>Tambah / Edit Item</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light py-5">
@@ -10,21 +10,23 @@
 <div class="container">
     <div class="card mx-auto shadow" style="max-width: 600px;">
         <div class="card-header bg-primary text-white text-center">
-            <h4>Tambah Item Baru</h4>
+            <h4>{{ isset($item) ? 'Edit Item' : 'Tambah Item Baru' }}</h4>
         </div>
         <div class="card-body">
-            <form action="{{ route('item.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ isset($item) ? route('item.update', $item->id) : route('item.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
+                @if(isset($item))
+                    @method('PUT')
+                @endif
 
                 <div class="mb-3">
                     <label for="gambar" class="form-label">Gambar</label>
-                    <input type="file" name="gambar" id="gambar" class="form-control" required>
+                    <input type="file" name="gambar" id="gambar" class="form-control" {{ isset($item) ? '' : 'required' }}>
                 </div>
 
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama Barang</label>
-                    <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $item->nama) }}" required>
+                    <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $item->nama ?? '') }}" required>
                 </div>
 
                 <div class="mb-3">
@@ -44,15 +46,26 @@
                     </select>
                 </div>
 
+                <div class="mb-3">
+                    <label for="genre_id" class="form-label">Genre</label>
+                    <select name="genre_id" id="genre_id" class="form-select" required>
+                        <option value="" disabled {{ old('genre_id', $item->genre_id ?? '') == '' ? 'selected' : '' }}>-- Pilih Genre --</option>
+                        @foreach ($genres as $genre)
+                            <option value="{{ $genre->id }}" {{ old('genre_id', $item->genre_id ?? '') == $genre->id ? 'selected' : '' }}>
+                                {{ $genre->nama }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="mb-3">
                     <label for="total" class="form-label">Total Barang</label>
-                    <input type="number" name="total" id="total" class="form-control" value="{{ old('total', $item->total) }}" required>
+                    <input type="number" name="total" id="total" class="form-control" value="{{ old('total', $item->total ?? '') }}" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="stock" class="form-label">Stok Tersedia</label>
-                    <input type="number" name="stock" id="stock" class="form-control" value="{{ old('stock', $item->stock) }}" required>
+                    <input type="number" name="stock" id="stock" class="form-control" value="{{ old('stock', $item->stock ?? '') }}" required>
                 </div>
 
                 <div class="d-flex justify-content-between">

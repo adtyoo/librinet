@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Kategori;
+use App\Models\Genre; // ✅ Tambahkan ini
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller
 {
-
     public function item(Request $request)
     {
         $items = Item::all()->map(function ($item) {
@@ -20,10 +20,11 @@ class ItemController extends Controller
 
         return response()->json($items);
     }
+
     // Menampilkan daftar item
     public function index()
     {
-        $items = Item::with(['kategori', 'admin'])->get();
+        $items = Item::with(['kategori', 'genre', 'admin'])->get();
         return view('admin.item.item', compact('items'));
     }
 
@@ -31,7 +32,8 @@ class ItemController extends Controller
     public function create()
     {
         $kategoris = Kategori::all();
-        return view('admin.item.tambahitem', compact('kategoris'));
+        $genres = Genre::all();
+        return view('admin.item.tambahitem', compact('kategoris', 'genres'));
     }
 
     // Menyimpan item baru
@@ -43,6 +45,7 @@ class ItemController extends Controller
             'total' => 'required',
             'stock' => 'required',
             'kategori_id' => 'required',
+            'genre_id' => 'required',
             'gambar' => 'required',
         ]);
 
@@ -57,6 +60,7 @@ class ItemController extends Controller
             'total' => $request->total,
             'stock' => $request->stock,
             'kategori_id' => $request->kategori_id,
+            'genre_id' => $request->genre_id,
             'gambar' => $gambarPath,
             'admin_id' => Auth::id(),
         ]);
@@ -69,7 +73,8 @@ class ItemController extends Controller
     {
         $item = Item::findOrFail($id);
         $kategoris = Kategori::all();
-        return view('admin.item.edititem', compact('item', 'kategoris'));
+        $genres = Genre::all();
+        return view('admin.item.edititem', compact('item', 'kategoris', 'genres'));
     }
 
     // update item yang sudah ada
@@ -83,19 +88,16 @@ class ItemController extends Controller
             'total' => 'required',
             'stock' => 'required',
             'kategori_id' => 'required',
-            'gambar' => 'required',
+            'genre_id' => 'required', 
+            'gambar' => 'nullable',
         ]);
 
         if ($request->hasFile('gambar')) {
-
-            if ($item->gambar && Storage::exists($item->gambar)) {
-                Storage::delete($item->gambar);
+            if ($item->gambar && Storage::disk('public')->exists($item->gambar)) {
+                Storage::disk('public')->delete($item->gambar);
             }
-
-            $gambarPath = $request->file('gambar')->store('items', 'public');
-            $item->gambar = $gambarPath;
+            $item->gambar = $request->file('gambar')->store('items', 'public');
         }
-
 
         $item->update([
             'nama' => $request->nama,
@@ -103,6 +105,8 @@ class ItemController extends Controller
             'total' => $request->total,
             'stock' => $request->stock,
             'kategori_id' => $request->kategori_id,
+            'genre_id' => $request->genre_id, // ✅
+            'gambar' => $item->gambar,
         ]);
 
         return redirect()->route('item.index')->with('success', 'Item berhasil diperbarui.');
@@ -119,14 +123,13 @@ class ItemController extends Controller
 
     public function api_item()
     {
-        $items = Item::with(['kategori'])->get();
+        $items = Item::with(['kategori', 'genre'])->get(); // ✅
         return response()->json($items);
     }
 
-        public function laporan()
+    public function laporan()
     {
-        $items = Item::with('kategori')->get();
+        $items = Item::with(['kategori', 'genre'])->get(); // ✅
         return view('admin.item.laporanitem', compact('items'));
     }
-
 }

@@ -33,7 +33,7 @@ class KategoriController extends Controller
 
         DB::statement("ALTER TABLE kategoris AUTO_INCREMENT = " . (DB::table('kategoris')->max('id') + 1));
 
-        return redirect('/dashboard')->with('success', 'Kategori berhasil ditambahkan.');
+        return redirect('/kategori')->with('success', 'Kategori berhasil ditambahkan.');
     }
 
     public function edit($id)

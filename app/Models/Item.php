@@ -17,7 +17,8 @@ class Item extends Model
         'total',
         'stock',
         'kategori_id',
-        'admin_id'
+        'admin_id',
+        'genre_id' // ✅ tambahkan ini
     ];
 
     protected $appends = ['image_url'];
@@ -39,5 +40,10 @@ class Item extends Model
     public function admin()
     {
         return $this->belongsTo(Admin::class, 'admin_id');
+    }
+
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class);
     }
 }

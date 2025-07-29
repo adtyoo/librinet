@@ -88,10 +88,8 @@
 <body>
 
 <div class="d-flex">
-    <!-- Sidebar -->
     @include('layouts.sidebar', ['active' => 'item'])
 
-    <!-- Main content -->
     <div class="flex-grow-1">
         <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
             <div class="container-fluid">
@@ -121,6 +119,7 @@
                         <th>Admin</th>
                         <th>Nama</th>
                         <th>Kategori</th>
+                        <th>Genre</th> <!-- ✅ Kolom Genre -->
                         <th>Total</th>
                         <th>Stok</th>
                         <th>Aksi</th>
@@ -137,12 +136,12 @@
                             <td>{{ $item->admin->name ?? '-' }}</td>
                             <td>{{ $item->nama }}</td>
                             <td>{{ $item->kategori->nama ?? '-' }}</td>
+                            <td>{{ $item->genre->name ?? '-' }}</td> <!-- ✅ Genre ditampilkan -->
                             <td>{{ $item->total }}</td>
                             <td>{{ $item->stock }}</td>
                             <td>
                                 <a href="{{ route('item.edit', $item->id) }}" class="btn btn-sm btn-primary">Edit</a>
 
-                                <!-- Form hapus disembunyikan, submit pakai JS -->
                                 <form id="delete-form-{{ $item->id }}" action="{{ route('item.destroy', $item->id) }}" method="POST" style="display:none;">
                                     @csrf
                                     @method('DELETE')
@@ -154,7 +153,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="text-center">Belum ada data item.</td>
+                            <td colspan="10" class="text-center">Belum ada data item.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -167,8 +166,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
-<!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>

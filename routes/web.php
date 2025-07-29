@@ -14,6 +14,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengembalianController;
+use App\Http\Controllers\GenreController;
 
 //user
 // Route::post('/loginuser', [UserController::class, 'login'])->name('login');
@@ -36,6 +37,9 @@ Route::post('/tambahkategori', [KategoriController::class, 'store'])->name('kate
 Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
 Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
 Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+
+//Genre
+Route::resource('genre', GenreController::class);
 
 //item
 // Route untuk menampilkan daftar item

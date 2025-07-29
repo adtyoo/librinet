@@ -18,7 +18,7 @@
         </a>
     </div>
 
-        <!-- Laporan Section -->
+    <!-- Laporan Section -->
     <div class="sidebar-section">
         <div class="sidebar-header">Laporan</div>
         <a href="{{ route('laporanpeminjaman') }}" class="menu-item {{ request()->routeIs('laporanpeminjaman') ? 'active' : '' }}">
@@ -32,7 +32,6 @@
         </a>
     </div>
 
-
     <!-- Master Data Section -->
     <div class="sidebar-section">
         <div class="sidebar-header">Master Data</div>
@@ -41,6 +40,9 @@
         </a>
         <a href="{{ route('kategori.index') }}" class="menu-item {{ request()->routeIs('kategori.index') ? 'active' : '' }}">
             <i class="fas fa-tags"></i>Kategori
+        </a>
+        <a href="{{ route('genre.index') }}" class="menu-item {{ request()->routeIs('genre.index') ? 'active' : '' }}">
+            <i class="fas fa-music"></i>Genre
         </a>
     </div>
 

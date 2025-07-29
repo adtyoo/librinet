@@ -41,6 +41,17 @@
                     </select>
                 </div>
 
+                <!-- ✅ Tambahkan Genre -->
+                <div class="mb-3">
+                    <label for="genre_id" class="form-label">Genre</label>
+                    <select name="genre_id" id="genre_id" class="form-select" required>
+                        <option value="" disabled selected>-- Pilih Genre --</option>
+                        @foreach ($genres as $genre)
+                            <option value="{{ $genre->id }}">{{ $genre->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class="mb-3">
                     <label for="total" class="form-label">Total Barang</label>
                     <input type="number" name="total" id="total" class="form-control" required>
