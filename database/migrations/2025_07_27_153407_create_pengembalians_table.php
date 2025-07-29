@@ -13,7 +13,7 @@ class CreatePengembaliansTable extends Migration
             $table->unsignedBigInteger('peminjaman_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('admin_id')->nullable();
-            $table->unsignedBigInteger('item_id');
+            $table->unsignedBigInteger('buku_id');
             $table->integer('jumlah');
 
             // Ubah dari date ke dateTime supaya bisa simpan tanggal + waktu lengkap
@@ -27,7 +27,7 @@ class CreatePengembaliansTable extends Migration
             // Foreign keys
             $table->foreign('peminjaman_id')->references('id')->on('peminjamans')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('item_id')->references('id')->on('items')->onDelete('cascade');
+            $table->foreign('buku_id')->references('id')->on('bukus')->onDelete('cascade');
         });
     }
 

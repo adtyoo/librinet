@@ -27,16 +27,16 @@
         <a href="{{ route('laporanpengembalian') }}" class="menu-item {{ request()->routeIs('laporanpengembalian') ? 'active' : '' }}">
             <i class="fas fa-chart-bar"></i>Laporan Pengembalian
         </a>
-        <a href="{{ route('laporanitem') }}" class="menu-item {{ request()->routeIs('laporanitem') ? 'active' : '' }}">
-            <i class="fas fa-box"></i>Laporan Item
+        <a href="{{ route('laporanbuku') }}" class="menu-item {{ request()->routeIs('laporanbuku') ? 'active' : '' }}">
+            <i class="fas fa-book"></i>Laporan Buku
         </a>
     </div>
 
     <!-- Master Data Section -->
     <div class="sidebar-section">
         <div class="sidebar-header">Master Data</div>
-        <a href="{{ route('item.index') }}" class="menu-item {{ request()->routeIs('item.index') ? 'active' : '' }}">
-            <i class="fas fa-boxes"></i>Item
+        <a href="{{ route('buku.index') }}" class="menu-item {{ request()->routeIs('buku.index') ? 'active' : '' }}">
+            <i class="fas fa-book-open"></i>Buku
         </a>
         <a href="{{ route('kategori.index') }}" class="menu-item {{ request()->routeIs('kategori.index') ? 'active' : '' }}">
             <i class="fas fa-tags"></i>Kategori

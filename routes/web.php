@@ -7,7 +7,7 @@ use App\Exports\PengembalianExport;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ItemController;
+use App\Http\Controllers\BukuController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KategoriController;
@@ -41,24 +41,27 @@ Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kateg
 //Genre
 Route::resource('genre', GenreController::class);
 
-//item
-// Route untuk menampilkan daftar item
-Route::get('/items', [ItemController::class, 'index'])->name('item.index');
+// buku
+// Route untuk menampilkan daftar buku
+Route::get('/bukus', [BukuController::class, 'index'])->name('buku.index');
 
-// Route untuk menampilkan form tambah item
-Route::get('/items/create', [ItemController::class, 'create'])->name('tambahitem');
+// Route untuk menampilkan form tambah buku
+Route::get('/bukus/create', [BukuController::class, 'create'])->name('tambahbuku');
 
-// Route untuk menyimpan item baru
-Route::post('/items', [ItemController::class, 'store'])->name('item.store');
+// Route untuk menyimpan buku baru
+Route::post('/bukus', [BukuController::class, 'store'])->name('buku.store');
 
-// Route untuk menampilkan form edit item
-Route::get('/items/{id}/edit', [ItemController::class, 'edit'])->name('item.edit');
+// Route untuk menampilkan form edit buku
+Route::get('/bukus/{id}/edit', [BukuController::class, 'edit'])->name('buku.edit');
 
-// Route untuk mengupdate item
-Route::put('/items/{id}', [ItemController::class, 'update'])->name('item.update');
+// Route untuk mengupdate buku
+Route::put('/bukus/{id}', [BukuController::class, 'update'])->name('buku.update');
 
-// Route untuk menghapus item
-Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('item.destroy');
+// Route untuk menghapus buku
+Route::delete('/bukus/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
+
+// laporan buku
+Route::get('/peminjaman/buku', [BukuController::class, 'laporan'])->name('laporanbuku');
 
 //admin
 Route::post('/logout', [AdminController::class, 'logout'])->name('logout');
@@ -70,7 +73,7 @@ Route::put('/peminjaman/{id}/reject', [PeminjamanController::class, 'reject'])->
 Route::put('/peminjaman/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
 
 //laporan item
-Route::get('/peminjaman/item', [ItemController::class, 'laporan'])->name('laporanitem');
+// Route::get('/peminjaman/item', [ItemController::class, 'laporan'])->name('laporanitem');
 
 // Route::get('/laporan-item/export', function () {
 //     return Excel::download(new ItemExport, 'laporan_item.xlsx');

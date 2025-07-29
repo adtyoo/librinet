@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('admin_id')->nullable()->constrained();
-            $table->foreignId('item_id')->constrained()->onDelete('cascade');
+            $table->foreignId('buku_id')->constrained()->onDelete('cascade');
             $table->integer('jumlah')->default(1);
             $table->dateTime('tanggal_peminjaman');
             $table->dateTime('tanggal_pengembalian')->nullable();

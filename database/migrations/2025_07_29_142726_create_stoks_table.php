@@ -7,27 +7,27 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up()
     {
-        Schema::create('items', function (Blueprint $table) {
+        Schema::create('stoks', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->text('description');
+
+            $table->unsignedBigInteger('buku_id');
             $table->unsignedBigInteger('kategori_id');
-            $table->unsignedBigInteger('genre_id');
-            $table->integer('total');
-            $table->integer('stock');
-            $table->string('gambar')->nullable();
-            $table->unsignedBigInteger('admin_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
+
+            $table->unsignedInteger('stok_total');
+            $table->unsignedInteger('stok_tersedia');
+
             $table->timestamps();
 
-            // Foreign keys
+            // Foreign key constraints
+            $table->foreign('buku_id')->references('id')->on('bukus')->onDelete('cascade');
             $table->foreign('kategori_id')->references('id')->on('kategoris')->onDelete('cascade');
-            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade'); // ✅ Foreign key genre
             $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('items');
+        Schema::dropIfExists('stoks');
     }
 };

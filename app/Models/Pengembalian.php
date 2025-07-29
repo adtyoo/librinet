@@ -12,7 +12,7 @@ class Pengembalian extends Model
     protected $fillable = [
         'peminjaman_id',
         'user_id',
-        'item_id',
+        'buku_id',
         'admin_id',
         'tanggal_peminjaman',
         'tanggal_pengembalian',
@@ -41,9 +41,9 @@ public function admin()
 }
 
 
-    public function item()
+    public function buku()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Buku::class);
     }
 }
 

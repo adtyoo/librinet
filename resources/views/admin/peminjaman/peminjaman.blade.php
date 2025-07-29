@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Persetujuan Peminjaman - Sarpras Sekolah</title>
+    <title>Persetujuan Peminjaman - Buku Librinet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
@@ -111,8 +111,8 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Peminjam</th>
-                        <th>Nama Barang</th>
-                        <th>Jumlah Barang</th>
+                        <th>Nama Buku</th>
+                        <th>Jumlah Buku</th>
                         <th>Admin</th>
                         <th>Tanggal Peminjaman</th>
                         <th>Tanggal Pengembalian</th>
@@ -125,7 +125,7 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $peminjaman->user->name ?? 'Tidak diketahui' }}</td>
-                            <td>{{ $peminjaman->item->nama ?? 'Tidak diketahui' }}</td>
+                            <td>{{ $peminjaman->buku->nama ?? 'Tidak diketahui' }}</td>
                             <td>{{ $peminjaman->jumlah ?? '-' }}</td>
                             <td>{{ $peminjaman->admin->name ?? '-' }}</td>
                             <td>{{ \Carbon\Carbon::parse($peminjaman->tanggal_peminjaman)->format('d-m-Y H:i') }}</td>
@@ -167,7 +167,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center">Belum ada data peminjaman.</td>
+                            <td colspan="9" class="text-center">Belum ada data peminjaman.</td>
                         </tr>
                     @endforelse
                 </tbody>

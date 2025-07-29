@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Daftar Item</title>
+    <title>Daftar Buku</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
     <style>
+        /* tetap sama stylingnya */
         body {
             font-family: Arial, sans-serif;
         }
@@ -88,12 +89,12 @@
 <body>
 
 <div class="d-flex">
-    @include('layouts.sidebar', ['active' => 'item'])
+    @include('layouts.sidebar', ['active' => 'buku'])
 
     <div class="flex-grow-1">
         <nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
             <div class="container-fluid">
-                <span class="navbar-brand mb-0 h1">Halaman Item</span>
+                <span class="navbar-brand mb-0 h1">Halaman Buku</span>
                 <div class="d-flex">
                     <span class="me-3">Halo, {{ Auth::user()->name ?? 'Pengguna' }}</span>
                     <form method="POST" action="{{ route('logout') }}" class="inline">
@@ -107,53 +108,51 @@
         </nav>
 
         <div class="content">
-            <h4>Halaman Item</h4>
-            <a href="{{ route('tambahitem') }}" class="btn btn-primary mb-3">Tambah Item</a>
+            <h4>Halaman Buku</h4>
+            <a href="{{ route('tambahbuku') }}" class="btn btn-primary mb-3">Tambah Buku</a>
 
-            <table id="itemsTable" class="table table-bordered table-striped">
+            <table id="bukusTable" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Id</th>
+                        <th>Kode</th>
                         <th>Gambar</th>
                         <th>Admin</th>
                         <th>Nama</th>
                         <th>Kategori</th>
                         <th>Genre</th> <!-- ✅ Kolom Genre -->
-                        <th>Total</th>
-                        <th>Stok</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($items as $index => $item)
+                    @forelse ($bukus as $index => $buku)
                         <tr>
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->id }}</td>
+                            <td>{{ $buku->id }}</td>
+                            <td>{{ $buku->kode }}</td>
                             <td>
-                                <img src="{{ $item->image_url }}" class="item-thumbnail img-thumbnail" alt="{{ $item->nama }}">
+                                <img src="{{ $buku->image_url }}" class="buku-thumbnail img-thumbnail" alt="{{ $buku->nama }}">
                             </td>
-                            <td>{{ $item->admin->name ?? '-' }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->kategori->nama ?? '-' }}</td>
-                            <td>{{ $item->genre->name ?? '-' }}</td> <!-- ✅ Genre ditampilkan -->
-                            <td>{{ $item->total }}</td>
-                            <td>{{ $item->stock }}</td>
+                            <td>{{ $buku->admin->name ?? '-' }}</td>
+                            <td>{{ $buku->nama }}</td>
+                            <td>{{ $buku->kategori->nama ?? '-' }}</td>
+                            <td>{{ $buku->genre->name ?? '-' }}</td>
                             <td>
-                                <a href="{{ route('item.edit', $item->id) }}" class="btn btn-sm btn-primary">Edit</a>
+                                <a href="{{ route('buku.edit', $buku->id) }}" class="btn btn-sm btn-primary">Edit</a>
 
-                                <form id="delete-form-{{ $item->id }}" action="{{ route('item.destroy', $item->id) }}" method="POST" style="display:none;">
+                                <form id="delete-form-{{ $buku->id }}" action="{{ route('buku.destroy', $buku->id) }}" method="POST" style="display:none;">
                                     @csrf
                                     @method('DELETE')
                                 </form>
-                                <button class="btn btn-sm btn-danger btn-delete-item" data-item-id="{{ $item->id }}">
+                                <button class="btn btn-sm btn-danger btn-delete-buku" data-buku-id="{{ $buku->id }}">
                                     Hapus
                                 </button>
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10" class="text-center">Belum ada data item.</td>
+                            <td colspan="11" class="text-center">Belum ada data buku.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -170,16 +169,16 @@
 
 <script>
     $(document).ready(function () {
-        $('#itemsTable').DataTable();
+        $('#bukusTable').DataTable();
 
-        $('.btn-delete-item').click(function(e) {
+        $('.btn-delete-buku').click(function(e) {
             e.preventDefault();
-            const itemId = $(this).data('item-id');
-            const itemName = $(this).closest('tr').find('td:nth-child(5)').text() || 'item ini';
+            const bukuId = $(this).data('buku-id');
+            const bukuName = $(this).closest('tr').find('td:nth-child(5)').text() || 'buku ini';
 
             Swal.fire({
                 title: 'Yakin ingin menghapus?',
-                text: `Anda akan menghapus ${itemName}. Tindakan ini tidak bisa dibatalkan!`,
+                text: `Anda akan menghapus ${bukuName}. Tindakan ini tidak bisa dibatalkan!`,
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
@@ -188,7 +187,7 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $('#delete-form-' + itemId).submit();
+                    $('#delete-form-' + bukuId).submit();
                 }
             });
         });

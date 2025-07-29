@@ -14,7 +14,7 @@ class Peminjaman extends Model
     protected $fillable = [
         'user_id',
         'admin_id',
-        'item_id',
+        'buku_id',
         'tanggal_peminjaman',
         'tanggal_pengembalian',
         'jumlah',
@@ -32,9 +32,9 @@ class Peminjaman extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function item()
+    public function buku()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(Buku::class);
     }
 
         public function pengembalian()

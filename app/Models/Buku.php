@@ -6,19 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Item extends Model
+class Buku extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'gambar',
+        'kode',
         'nama',
         'description',
         'total',
         'stock',
         'kategori_id',
         'admin_id',
-        'genre_id' // ✅ tambahkan ini
+        'genre_id' // ✅ tetap disertakan
     ];
 
     protected $appends = ['image_url'];

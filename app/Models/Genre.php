@@ -18,6 +18,6 @@ class Genre extends Model
 
     public function items()
     {
-        return $this->hasMany(Item::class);
+        return $this->hasMany(Buku::class);
     }
 }
